@@ -1,4 +1,4 @@
-# The LOCK module
+# The LOCK I/O module
 
 The switches, buttons and lights, on one unit that plugs into the Gigatron's 9-pin controller port. No other port is used.
 
