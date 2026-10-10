@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+rom/gtrun
+rom/*.rom
+rom/*.json
+c-port/lock_pc*
+c-port/*.gt1
+c-port/runs/
