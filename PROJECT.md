@@ -2,7 +2,7 @@
 
 **A transparent key calculator. An Anonymous Art artifact.**
 
-Status: outline, draft 0.10, 10 October 2026. No hardware is built. A complete program chip image exists and passes every test on a model of the Gigatron and of the plug-in module (section 7e). It has not run on a real board.
+Status: outline, draft 0.11, 10 October 2026. No hardware is built. A complete program chip image exists and passes every test on a model of the Gigatron and of the plug-in module (section 7e). It has not run on a real board.
 
 The keysmith cuts the key by hand; this machine derives the lock that the key fits.
 
@@ -78,7 +78,7 @@ It is the successor to **CHECKSUM** (the relay machine). CHECKSUM makes the chec
 **Output.**
 
 - Eleven lights for the 12th word's switch pattern.
-- A single row of 41 LEDs for the xpub QR code, with a row counter and a "next row" button. The LEDs are grouped in fives, matching the printed grid, so the copyist keeps their place. The code is 41 by 41 squares (the same size SeedSigner shows), so 41 rows are copied by hand onto a printed grid, as in the Slow Money game. No screen anywhere.
+- The same eleven lights show the xpub QR code, one block of a row at a time, with four block lights (A to D), a row counter, and NEXT and BACK buttons. The code is 41 by 41 squares (the same size SeedSigner shows), so 41 rows are copied by hand onto a printed grid, as in the Slow Money game. No screen anywhere.
 - Eight status lights: what the machine is doing, and a count (words entered, or the row number). There is no progress display during the calculation in this version.
 
 **Housing.** Transparent, in keeping with CHECKSUM.
@@ -97,9 +97,10 @@ Pin numbers for the three lines are from the official Gigatron sources. Power is
 
 Diagrams: `docs/lock-system.svg` (the board as LOCK uses it) and `docs/lock-module.svg` (module wiring). The full wiring, pin by pin, is in `module/README.md`.
 
-- Switches and buttons: two 74HC165 chips (16 inputs: 11 switches, "store", "next row").
-- Lights: six or seven 74HC595 chips (41 row LEDs and a row counter). Each holds its outputs until told to update.
-- LEDs, not filament bulbs. The board's own fuse holds 0.2 A and the board itself draws about 0.1 A, so the module must stay well under 0.1 A: high-efficiency LEDs at about 1 mA each (roughly 50 mA with every light on), or a separate 5 V feed to the module.
+- Switches and buttons: two 74HC165 chips (16 inputs: 11 switches, STORE, NEXT, BACK).
+- Lights: three 74HC595 chips driving 23 LEDs: 11 data lights above the 11 switches, 4 block lights (A to D), 6 for a count and 2 for the mode. Each chip holds its outputs until told to update.
+- Decided 10 October 2026: 11 data lights, not a row of 41. A QR row is shown in four blocks: A = squares 1 to 11, B = 12 to 22, C = 23 to 33, D = 34 to 41. This roughly halves the module (5 chips, not 9) at the cost of 164 presses for the whole code, not 41. The front panel is drawn in `docs/lock-fascia.svg`.
+- LEDs, not filament bulbs. The board's own fuse holds 0.2 A and the board itself draws about 0.1 A. With 23 high-efficiency LEDs at about 1 mA each the module takes roughly 25 mA with every light on, well inside that.
 - The Gigatron's own four LEDs change whenever the Pulse line ticks and can serve as a progress display.
 
 **How the program expects the module to be wired**
@@ -108,17 +109,17 @@ Diagrams: `docs/lock-system.svg` (the board as LOCK uses it) and `docs/lock-modu
 |---|---|
 | Inputs | 16, read as two bytes. A closed switch or pressed button reads as 0 at the chip (pull-up resistors), so an unplugged module reads as "everything off" |
 | First byte in | word bits 7 to 0, bit 7 first |
-| Second byte in | STORE, NEXT, three unused (tied high), then word bits 10, 9, 8 |
-| Lights | 56 outputs in one chain, sent as: the 41 row lights left to right, 7 unused, then 8 status lights |
+| Second byte in | STORE, NEXT, BACK, two unused (tied high), then word bits 10, 9, 8 |
+| Lights | 24 outputs in one chain, sent as: the 11 data lights left to right, block lights A B C D, 1 unused, then 8 status lights |
 | Status lights | two for the mode (entering, busy, 12th word, QR row) and six for a count in binary |
 
 **Using it**
 
-1. Power on. Set the 11 switches to a word's pattern; the first 11 lights follow the switches. Press STORE. The count goes up by one.
+1. Power on. Set the 11 switches to a word's pattern; the 11 data lights follow the switches. Press STORE. The count goes up by one. BACK takes back the last entry.
 2. Repeat for all 11 words. For the 12th entry, set the seven right-hand switches to the coin-flip bits and press STORE.
 3. The lights go dark and the mode shows "busy" for about two and a half minutes.
-4. The first 11 lights show the 12th word's pattern. Press NEXT.
-5. The 41 lights show row 1 of the QR code, and the count shows the row number. Copy the row, press NEXT, and so on to row 41. NEXT again returns to the 12th word, so everything can be checked a second time.
+4. The data lights show the 12th word's pattern. Press NEXT.
+5. The data lights show block A of row 1, the block light A is lit, and the count shows the row number. Copy the block and press NEXT for B, C and D, then on to the next row. Block D has eight squares; the last three lights stay dark. After row 41 block D, NEXT returns to the 12th word, so everything can be checked a second time. BACK steps the other way.
 6. Power off, or reset to start again. One key per power-up.
 
 **Known limits of this module design**
@@ -126,6 +127,7 @@ Diagrams: `docs/lock-system.svg` (the board as LOCK uses it) and `docs/lock-modu
 - Reading the switches disturbs the light chain, so the program rewrites the lights straight after every read, about 40 times a second. For roughly 0.1 ms each time the lights can show a wrong pattern. That is about half a percent of the time and should not be visible; if it is, one more simple chip separating the two functions would remove it.
 - The Gigatron's input register is a 74HC595 with both of its clocks on the Pulse line, so the value the program reads is one pulse behind. The official emulator leaves this out; two loader programs in the official repository allow for it. Since draft 0.10 the program sends one extra pulse before reading and the module model includes the delay. Still to be confirmed on a kit.
 - Button presses are accepted when seen on two reads in a row, about 50 ms.
+- The 12th entry starts the calculation at once, so BACK cannot take it back.
 
 ### 6a. Candidate boards (surveyed October 2026)
 
@@ -146,7 +148,7 @@ None is usable unchanged, but the Gigatron needs the least done to it.
 - It has the fewest chips, the most documentation, an emulator, and kits on sale.
 - The cost: its instruction set is weak for this arithmetic, so the routines are hand-written in native code, with shifts done by table lookup and carries worked out from top bits. Measured for the heavy hash: 64 seconds per key (section 7b).
 - Leave off the keyboard adapter, which contains a microcontroller. Switches go to the input port.
-- Add the plug-in module for the switches and the 41 LEDs (section 6b).
+- Add the plug-in module for the switches and lights (section 6b).
 
 **Minimal 64x4** was the alternative in case the Gigatron proved too slow. The native hash measurement (section 7b) shows it is not needed.
 
@@ -326,12 +328,12 @@ Inputs and results still sit in RAM, read and written by the test script. The wo
 | Test | Result |
 |---|---|
 | Calculation with inputs and results in memory, 8 phrases | All match `keycalc.py`: 12th word, fingerprint, key record, the 111-character zpub, the descriptor, and all 1,681 squares of the QR code |
-| The whole machine through the module model, 4 phrases | Words entered on the switches; the 12th word and all 41 rows read back from the lights; all correct |
-| Independent scan of the code read from the lights | Reads back the exact descriptor, all 4 times |
+| The whole machine through the module model, 3 phrases (11-light module) | Words entered on the switches; the 12th word and all 164 blocks read back from the lights; BACK takes back an entry and steps back through the blocks; all correct |
+| Independent scan of the code read from the lights | Reads back the exact descriptor, all 3 times |
 | Working memory after the result is shown | Wiped: the pages that held words, seed and keys read as zero |
 | Time from the last STORE to the 12th word appearing | 145 to 150 seconds |
 | Text and QR code, of that | 0.14 seconds |
-| Program chip used | 52,526 of 65,536 words (80%) |
+| Program chip used | 52,814 of 65,536 words (81%) |
 | Working memory | fits the stock 32K |
 
 The QR code uses fixed mask 0, so the comparison is against `keycalc.py` with that mask chosen.
@@ -412,6 +414,6 @@ Phases 1 and 2 cost little. Phase 3 is the commitment point.
 | `module/README.md` | The plug-in module: wiring, parts, power |
 | `docs/first-run.md` | From a new kit to the first key |
 | `docs/first-run-rows.txt` | The expected lights for the first test |
-| `docs/lock-system.svg`, `docs/lock-module.svg` | The two diagrams; `docs/make_diagrams.py` draws them |
+| `docs/lock-system.svg`, `docs/lock-module.svg`, `docs/lock-fascia.svg` | The system, the module wiring and the module's front panel; `docs/make_diagrams.py` draws them |
 
 To repeat the simulator runs of the C port: build GLCC from github.com/lb3361/gigatron-lcc, then in `c-port/` run `glcc -rom=dev7 -map=sim,allout lock.c -o lock_dev7.gt1` and feed 11 word numbers and the 7 bits (as a number 0 to 127) to `gtsim`.

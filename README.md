@@ -2,7 +2,7 @@
 
 **A transparent key calculator. An Anonymous Art artifact.**
 
-LOCK runs on a Gigatron, a computer built from plain logic chips with no microprocessor. You enter 11 seed words and 7 coin flips on a row of switches. It shows the 12th word and the account's public key record as a QR code, one row at a time on 41 lights, for copying by hand.
+LOCK runs on a Gigatron, a computer built from plain logic chips with no microprocessor. You enter 11 seed words and 7 coin flips on a row of switches. It shows the 12th word and the account's public key record as a QR code on 11 lights, a quarter of a row at a time, for copying by hand.
 
 The full outline is in [PROJECT.md](PROJECT.md).
 
@@ -23,7 +23,7 @@ The full outline is in [PROJECT.md](PROJECT.md).
 | `rom/` | The program chip: a small assembler, the generator for `lock.rom`, a simulator, and tests |
 | `release/` | The chip image to burn, and its checksum |
 | `module/` | The plug-in switch and light module: wiring and parts |
-| `docs/` | Diagrams, the first-run guide, and the expected lights for the first test |
+| `docs/` | Diagrams (system, module wiring, front panel), the first-run guide, and the expected lights for the first test |
 
 ## Where to start
 
@@ -37,7 +37,7 @@ Needs Python 3 and a C compiler. The reference tests also use the Python package
 ```
 python3 reference/test_keycalc.py     # the reference against published vectors
 rom/build.sh                          # builds the simulator and lock.rom, compares with release/
-python3 rom/test_lock_rom.py 8 4      # the chip image end to end (about 10 minutes)
+python3 rom/test_lock_rom.py 4 2      # the chip image end to end (several minutes)
 ```
 
 `test_lock_rom.py N M` checks N phrases with inputs placed in memory and M phrases entered through the simulated switches.
@@ -55,6 +55,7 @@ cd release && sha256sum -c SHA256SUMS
 | Reference against BIP32, BIP39 and BIP84 vectors and a second library | Passes |
 | Chip image, 12th word, fingerprint, key record, QR squares | Match the reference |
 | Words entered on the simulated switches, results read from the simulated lights | Correct; an independent scanner reads the exact key record |
+| BACK button: taking back an entry, stepping back through the blocks | Correct |
 | Working memory when the result appears | Wiped |
 | Time per key on the real clock speed | About two and a half minutes |
 
