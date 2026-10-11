@@ -1,0 +1,89 @@
+# KEY
+
+**The key that is cut before the lock. The hand-made half of LOCK.**
+
+KEY is the manual process that makes a Bitcoin seed with dice and records it on a steel plate as dots and numbers. No words are used until the day the key is swept. [LOCK](../README.md) is the machine that takes the finished rows and gives back the checksum and the public key.
+
+Everything in this folder is a draft for a first paper dry run.
+
+## Status
+
+- **Nothing here has been tested by people yet.** The sheets, plates and run sheet are drafts (0.1, 11 October 2026).
+- **Practice keys only.** The dry run uses paper and a networked computer. A key made this way must never hold money.
+- The steel plates are drawings. No plate has been cut, and nobody has checked that a phone can read a punched xpub plate.
+- Sizes assume 3 mm number stamps and 16 mm dice. Both are assumptions.
+
+## How it works
+
+1. **Throw.** Eleven dice, each a fair coin: dots on top is 1, blank on top is 0. One throw gives one row of eleven cells.
+2. **Mark.** The dice go into a strip that fixes their order. Each die showing dots becomes one punched dot in that row of the seed plate.
+3. **Number.** The same eleven dice point to one cell on the number sheets: 2 orange dice give the sheet, 5 white the row, 4 black the column. Its four-digit number is stamped at the end of the row.
+4. **Repeat** for rows 1 to 11. Row 12 takes one throw of the orange and white dice only, which fills its first seven cells.
+5. **LOCK** reads the rows from switches and returns the last four cells of row 12 (the checksum), then the xpub code, one row of lights at a time.
+6. **Check.** Every row is read back from its dots and compared with its stamped number.
+7. **Copy** the xpub code by hand onto its own grid.
+
+Words appear only at sweep, when the twelve numbers are looked up on the word sheets and typed into a wallet.
+
+## Conventions
+
+| | |
+|---|---|
+| Dot | ● = 1 = punched. ○ = 0 = left blank |
+| Row | 11 cells, grouped 2, 5, 4: sheet, row, column. Read left to right |
+| Number | The row read as one binary number, **0000 to 2047, counting from zero**. 0000 is *abandon*, 2047 is *zoo* |
+| Word list | The standard BIP39 English list. The numbers are language-neutral, but a wallet is derived from the English words, so a plate's numbers always point into that list |
+| Row 12 | First seven cells from the dice, last four from LOCK |
+| Account | Native SegWit, `m/84'/0'/0'`, as LOCK computes it |
+
+## Files
+
+| File | What it is |
+|---|---|
+| `key-dice.pdf` | The eleven dice explained on one page |
+| `key-dice-strips.pdf` | Paper strips that hold a throw in order: two row strips and one for row 12. Cut out |
+| `slow-money-game-bip39-number-sheets.pdf` | Number sheets A to D: dice to four-digit number. Used while cutting the key |
+| `slow-money-game-bip39-word-sheets.pdf` | Word sheets A to D, with the number under each word. Used only at sweep |
+| `key-seed-plate-design.pdf` | The seed plate: design drawing, two paper plates for the dry run, and a worked example |
+| `key-xpub-plate-design.pdf` | The xpub plate: design drawing, a paper grid for the dry run, and a worked example that scans |
+| `key-run-sheet-dry-run.pdf` | The steps, with tick boxes and a log, for a cutter and a checker |
+| `lock_standin.py` | Stands in for LOCK during the dry run. Numbers in; row 12, fingerprint and the xpub rows out |
+
+The two sheet files are shared with the Slow Money game and carry its name.
+
+## Running the dry run
+
+Print everything above except the script. Two people, about two hours (an estimate). Then follow `key-run-sheet-dry-run.pdf`.
+
+The stand-in needs Python 3 and nothing else. Run it from the LOCK folder:
+
+```
+python3 KEY/lock_standin.py n1 n2 … n11 bbbbbbb
+```
+
+`n1` to `n11` are the numbers of rows 1 to 11, and `bbbbbbb` is the first seven cells of row 12 as 1s and 0s.
+
+To check your setup first, use the worked example on page 3 of the seed plate design:
+
+```
+python3 KEY/lock_standin.py 1268 0535 0810 0685 0433 0811 1385 1790 0421 0570 0567 1010010
+```
+
+It must answer row 12 = `1313` and fingerprint `a07d432c`.
+
+## Not yet decided or proven
+
+- **Steel.** Grade, thickness, how the grid is put on, and how the plates are fixed or sealed.
+- **Scanning punched steel.** Punch dots may give too little contrast for a phone. The xpub plate may need filled marks or larger squares.
+- **The fingerprint.** Its eight characters include the letters a to f, so number stamps alone cannot record it.
+- **Row 12 on LOCK.** LOCK's outline enters the seven dice bits on the seven right-hand switches. On the plate they are the seven left-hand cells. One of the two should change so a row is always copied the same way.
+- **`reference/keycalc.py`** prints the 12th word's list line counting from 1. Here everything counts from 0.
+- **A ceremony version of the number sheets**, without the game's name and practice-only footer.
+- **The real ceremony.** This folder covers the paper dry run. The live ceremony, with LOCK and steel, is not written yet.
+
+## Related work
+
+- **LOCK** (this repository): the transparent key calculator.
+- **BINARY** (Anonymous Art): eleven sliders for one row, and a dashboard that shows any row's number and word.
+- **The Slow Money game:** the same dice and sheets, used with words for family practice.
+- **btckeys:** the Keysmith ceremony this process is meant to serve.
