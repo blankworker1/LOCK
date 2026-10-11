@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KEY</title>
+<style>
+  :root{
+    --iron-1:#2a2927; --iron-2:#4a4844;
+    --plate-1:#9a9d9f; --plate-2:#7c7f82;
+    --ivory:#ddd6c4; --brass:#8a7a54; --engrave:#25231d;
+    --on:#8f2c22; --on-light:#b6483a;
+  }
+  *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html,body{ margin:0; min-height:100%; }
+  html{ background:var(--iron-1); }
+  body{
+    background: radial-gradient(ellipse at 50% 20%, var(--iron-2) 0%, var(--iron-1) 75%);
+    background-attachment: fixed;
+    color:#e9e5d8; font-family:'Courier New', monospace;
+    padding: clamp(14px, 4vw, 36px); display:flex; justify-content:center;
+  }
+  .rig{ width:100%; max-width:820px; display:flex; flex-direction:column; gap:20px; }
+  h1{ margin:0; font-size:clamp(30px, 9vw, 46px); letter-spacing:8px; }
+  .tag{ margin:6px 0 0; font-size:15px; line-height:1.5; color:#cfcabb; max-width:60ch; }
+  .warn{
+    border:2px solid var(--on-light); border-radius:5px; padding:12px 14px;
+    font-size:14px; line-height:1.5; background:rgba(143,44,34,.22); color:#f6e9e3;
+  }
+  .warn b{ color:#fff; }
+  h2{ margin:6px 0 0; font-size:13px; letter-spacing:2px; text-transform:uppercase; color:#cfcabb; }
+  .cards{ display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:16px; }
+  a.card{
+    display:block; text-decoration:none; color:var(--engrave);
+    padding:18px; border-radius:6px; border:1px solid #3a3c3e;
+    background: linear-gradient(155deg, var(--plate-1) 0%, var(--plate-2) 60%, #6a6d70 100%);
+    box-shadow: 0 1px 0 rgba(255,255,255,.08) inset, 0 12px 26px rgba(0,0,0,.45);
+  }
+  a.card:hover, a.card:focus-visible{ outline:2px solid var(--ivory); outline-offset:2px; }
+  a.card:active{ transform:translateY(1px); }
+  .card .step{ font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; }
+  .card h3{ margin:6px 0 8px; font-size:21px; letter-spacing:1px; }
+  .card p{ margin:0; font-size:14px; line-height:1.5; font-weight:700; }
+  .card .open{
+    display:inline-block; margin-top:14px; padding:8px 13px; border-radius:4px; border:1px solid #4a3f28;
+    font-size:13px; font-weight:700; letter-spacing:1px;
+    background: linear-gradient(180deg, #cbb789, var(--brass));
+  }
+  ul.files{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:6px 18px; }
+  ul.files li{ font-size:14px; line-height:1.45; }
+  ul.files a{ color:var(--ivory); font-weight:700; }
+  ul.files span{ display:block; color:#bdb8a9; font-size:12.5px; }
+  footer{ font-size:12.5px; line-height:1.5; color:#bdb8a9; }
+  footer a{ color:var(--ivory); }
+</style>
+</head>
+<body>
+<div class="rig">
+  <header>
+    <h1>KEY</h1>
+    <p class="tag">The key that is cut before the lock. Dice, dots and numbers in; one address out. These are the practice tools for the paper dry run.</p>
+  </header>
+
+  <div class="warn"><b>Practice keys only.</b> These pages are for learning and testing the process. A phone, tablet or computer that runs them has seen the whole key, so a key entered here must never hold money. Nothing you enter is stored or sent: once a page has loaded, it works with no network.</div>
+
+  <h2>The two tools</h2>
+  <div class="cards">
+    <a class="card" href="key-lock-standin.html">
+      <div class="step">Flow A · Part C</div>
+      <h3>LOCK stand-in</h3>
+      <p>Enter the seed plate. It gives the last four dots of row 12, and the lock: the key's one address, as nineteen rows to punch.</p>
+      <span class="open">Open</span>
+    </a>
+    <a class="card" href="key-seedqr.html">
+      <div class="step">Flow B · Part 1</div>
+      <h3>SeedQR</h3>
+      <p>Enter the finished seed plate. It draws the code a SeedSigner scans to load the key, with no words typed.</p>
+      <span class="open">Open</span>
+    </a>
+  </div>
+
+  <h2>The paper</h2>
+  <ul class="files">
+    <li><a href="key-run-sheet-dry-run.pdf">Run sheet, flow A</a><span>The paper dry run, step by step</span></li>
+    <li><a href="key-run-sheet-seedsigner.pdf">Run sheet, flow B</a><span>The SeedSigner check</span></li>
+    <li><a href="key-dice.pdf">The eleven dice</a><span>What they are and how to read them</span></li>
+    <li><a href="key-dice-strips.pdf">Dice strips</a><span>Hold a throw in order</span></li>
+    <li><a href="key-bip39-number-sheets.pdf">Number sheets</a><span>Dice to four-digit number</span></li>
+    <li><a href="key-bip39-word-sheets.pdf">Word sheets</a><span>Number to word, for sweep only</span></li>
+    <li><a href="key-seed-plate-design.pdf">Seed plate</a><span>Drawing, paper plates, worked example</span></li>
+    <li><a href="key-lock-plate-design.pdf">Lock plate</a><span>Drawing, paper plate, worked example</span></li>
+    <li><a href="key-address-card.pdf">Address card</a><span>Numbers 00 to 31 as address characters</span></li>
+  </ul>
+
+  <footer>
+    KEY is the hand-made half of LOCK, a transparent key calculator and an Anonymous Art artifact. Everything here is a draft, untested by people. The steel plates are drawings and LOCK itself is not yet built.
+  </footer>
+</div>
+</body>
+</html>
