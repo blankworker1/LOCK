@@ -1,6 +1,6 @@
 # Oikonomia: KEY + LOCK workshop plan
 
-12 October 2026 · Carl
+12 October 2026 · Bosa
 
 *l'arte che teniamo a casa.* A three-hour session for 8 to 10 people. Each person throws, pins and checks their own practice tablet, and goes home with both faces complete and verified.
 
