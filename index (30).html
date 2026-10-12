@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KEY</title>
+<style>
+  :root{
+    --iron-1:#2a2927; --iron-2:#4a4844;
+    --plate-1:#9a9d9f; --plate-2:#7c7f82;
+    --ivory:#ddd6c4; --brass:#8a7a54; --engrave:#25231d;
+    --on:#8f2c22; --on-light:#b6483a;
+  }
+  *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html,body{ margin:0; min-height:100%; }
+  html{ background:var(--iron-1); }
+  body{
+    background: radial-gradient(ellipse at 50% 20%, var(--iron-2) 0%, var(--iron-1) 75%);
+    background-attachment: fixed;
+    color:#e9e5d8; font-family:'Courier New', monospace;
+    padding: clamp(14px, 4vw, 36px); display:flex; justify-content:center;
+  }
+  .rig{ width:100%; max-width:820px; display:flex; flex-direction:column; gap:20px; }
+  h1{ margin:0; font-size:clamp(30px, 9vw, 46px); letter-spacing:8px; }
+  .tag{ margin:6px 0 0; font-size:15px; line-height:1.5; color:#cfcabb; max-width:60ch; }
+  .warn{
+    border:2px solid var(--on-light); border-radius:5px; padding:12px 14px;
+    font-size:14px; line-height:1.5; background:rgba(143,44,34,.22); color:#f6e9e3;
+  }
+  .warn b{ color:#fff; }
+  h2{ margin:6px 0 0; font-size:13px; letter-spacing:2px; text-transform:uppercase; color:#cfcabb; }
+  .cards{ display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:16px; }
+  a.card{
+    display:block; text-decoration:none; color:var(--engrave);
+    padding:18px; border-radius:6px; border:1px solid #3a3c3e;
+    background: linear-gradient(155deg, var(--plate-1) 0%, var(--plate-2) 60%, #6a6d70 100%);
+    box-shadow: 0 1px 0 rgba(255,255,255,.08) inset, 0 12px 26px rgba(0,0,0,.45);
+  }
+  a.card:hover, a.card:focus-visible{ outline:2px solid var(--ivory); outline-offset:2px; }
+  a.card:active{ transform:translateY(1px); }
+  .card .step{ font-size:12px; font-weight:700; letter-spacing:2px; text-transform:uppercase; }
+  .card h3{ margin:6px 0 8px; font-size:21px; letter-spacing:1px; }
+  .card p{ margin:0; font-size:14px; line-height:1.5; font-weight:700; }
+  .card .open{
+    display:inline-block; margin-top:14px; padding:8px 13px; border-radius:4px; border:1px solid #4a3f28;
+    font-size:13px; font-weight:700; letter-spacing:1px;
+    background: linear-gradient(180deg, #cbb789, var(--brass));
+  }
+  ul.files{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:6px 18px; }
+  ul.files li{ font-size:14px; line-height:1.45; }
+  ul.files a{ color:var(--ivory); font-weight:700; }
+  ul.files span{ display:block; color:#bdb8a9; font-size:12.5px; }
+  footer{ font-size:12.5px; line-height:1.5; color:#bdb8a9; }
+  footer a{ color:var(--ivory); }
+</style>
+</head>
+<body>
+<div class="rig">
+  <header>
+    <h1>KEY</h1>
+    <p class="tag">The key that is cut before the lock. Dice, dots and numbers in; one address out. These are the practice tools for the paper dry run.</p>
+  </header>
+
+  <div class="warn"><b>Practice keys only.</b> These pages are for learning and testing the process. A phone, tablet or computer that runs them has seen the whole key, so a key entered here must never hold money. Nothing you enter is stored or sent: once a page has loaded, it works with no network.</div>
+
+  <h2>The two tools</h2>
+  <div class="cards">
+    <a class="card" href="key-lock-standin.html">
+      <div class="step">Flow A · Part C</div>
+      <h3>LOCK stand-in</h3>
+      <p>Enter the seed plate. It gives the last four dots of row 12, and the lock: the key's one address, as nineteen rows to punch.</p>
+      <span class="open">Open</span>
+    </a>
+    <a class="card" href="key-seedqr.html">
+      <div class="step">Flow B · Part 1</div>
+      <h3>SeedQR</h3>
+      <p>Enter the finished seed plate. It draws the code a SeedSigner scans to load the key, with no words typed.</p>
+      <span class="open">Open</span>
+    </a>
+  </div>
+
+  <h2>The paper</h2>
+  <ul class="files">
+    <li><a href="key-tablet.pdf">Pin tablet</a><span>The two faces, to glue on 12 mm plywood</span></li>
+    <li><a href="key-run-sheet-dry-run.pdf">Run sheet, flow A</a><span>The paper dry run, step by step</span></li>
+    <li><a href="key-run-sheet-seedsigner.pdf">Run sheet, flow B</a><span>The SeedSigner check</span></li>
+    <li><a href="key-dice.pdf">The eleven dice</a><span>What they are and how to read them</span></li>
+    <li><a href="key-dice-strips.pdf">Dice strips</a><span>Hold a throw in order</span></li>
+    <li><a href="key-bip39-number-sheets-en.pdf" data-href-en="key-bip39-number-sheets-en.pdf" data-href-it="key-bip39-number-sheets-it.pdf">Number sheets</a><span>Dice to four-digit number</span></li>
+    <li><a href="key-bip39-word-sheets-en.pdf" data-href-en="key-bip39-word-sheets-en.pdf" data-href-it="key-bip39-word-sheets-it.pdf">Word sheets</a><span>Number to word, for sweep only</span></li>
+    <li><a href="key-seed-plate-design.pdf">Seed plate</a><span>Drawing, paper plates, worked example</span></li>
+    <li><a href="key-lock-plate-design.pdf">Lock plate</a><span>Drawing, paper plate, worked example</span></li>
+    <li><a href="key-workshop-plan-en.md">Workshop plan</a><span>For the facilitator, in English</span></li>
+    <li><a href="key-address-card-en.pdf" data-href-en="key-address-card-en.pdf" data-href-it="key-address-card-it.pdf">Address card</a><span>Numbers 00 to 31 as address characters</span></li>
+  </ul>
+
+  <footer>
+    KEY is the hand-made half of LOCK, a transparent key calculator and an Anonymous Art artifact. Everything here is a draft, untested by people. The steel plates are drawings and LOCK itself is not yet built.
+  </footer>
+</div>
+
+
+
+
+<style>
+  header{ position:relative; padding-right:64px; }
+  .lang{ position:absolute; top:0; right:0; font:700 13px/1 'Courier New', monospace; letter-spacing:1px;
+         padding:8px 10px; border-radius:4px; border:1px solid #4a3f28; color:#25231d; cursor:pointer;
+         background:linear-gradient(180deg, #cbb789, #8a7a54); }
+  .lang:focus-visible{ outline:2px solid #ddd6c4; outline-offset:2px; }
+</style>
+<script>
+(function(){
+  'use strict';
+  var IT = {"Practice keys only.": "Solo chiavi di prova.", "Worked example": "Esempio svolto", "Clear": "Cancella", "No row can be higher than 2047. Check the row marked in red.": "Nessuna riga può superare 2047. Controlla la riga segnata in rosso.", "Address": "Indirizzo", "Digit stream": "Sequenza di cifre", "Row 12 number": "Numero della riga 12", "The key that is cut before the lock. Dice, dots and numbers in; one address out. These are the practice tools for the paper dry run.": "La chiave che si taglia prima della serratura. Entrano dadi, punti e numeri; esce un solo indirizzo. Questi sono gli strumenti per la prova su carta.", "These pages are for learning and testing the process. A phone, tablet or computer that runs them has seen the whole key, so a key entered here must never hold money. Nothing you enter is stored or sent: once a page has loaded, it works with no network.": "Queste pagine servono a imparare e provare il procedimento. Un telefono, tablet o computer che le apre ha visto tutta la chiave, quindi una chiave inserita qui non deve mai contenere denaro. Niente di ciò che inserisci viene salvato o inviato: una volta caricata, la pagina funziona senza rete.", "The two tools": "I due strumenti", "Flow A · Part C": "Flusso A · Parte C", "LOCK stand-in": "Sostituto di LOCK", "Enter the seed plate. It gives the last four dots of row 12, and the lock: the key's one address, as nineteen rows to punch.": "Inserisci il lato KEY. Dà gli ultimi quattro punti della riga 12 e il lato LOCK: l'unico indirizzo della chiave, in diciannove righe.", "Open": "Apri", "Flow B · Part 1": "Flusso B · Parte 1", "Enter the finished seed plate. It draws the code a SeedSigner scans to load the key, with no words typed.": "Inserisci il lato KEY finito. Disegna il codice che un SeedSigner legge per caricare la chiave, senza scrivere parole.", "The paper": "I fogli", "Pin tablet": "TABLET a puntine", "The two faces, to glue on 12 mm plywood": "Le due facce, da incollare su compensato da 12 mm", "Run sheet, flow A": "Foglio di lavoro, flusso A", "The paper dry run, step by step": "La prova su carta, passo per passo", "Run sheet, flow B": "Foglio di lavoro, flusso B", "The SeedSigner check": "Il controllo con SeedSigner", "The eleven dice": "Gli undici dadi", "What they are and how to read them": "Cosa sono e come leggerli", "Dice strips": "Strisce per i dadi", "Hold a throw in order": "Tengono in ordine un lancio", "Number sheets": "Fogli dei numeri", "Dice to four-digit number": "Dai dadi al numero di quattro cifre", "Word sheets": "Fogli delle parole", "Number to word, for sweep only": "Dal numero alla parola, solo per lo sweep", "Seed plate": "Piastra KEY", "Drawing, paper plates, worked example": "Disegno, piastre di carta, esempio svolto", "Lock plate": "Piastra LOCK", "Drawing, paper plate, worked example": "Disegno, piastra di carta, esempio svolto", "Address card": "Carta degli indirizzi", "Numbers 00 to 31 as address characters": "Numeri da 00 a 31 come caratteri dell'indirizzo", "Workshop plan": "Piano del laboratorio", "For the facilitator, in English": "Per chi conduce, in inglese", "KEY is the hand-made half of LOCK, a transparent key calculator and an Anonymous Art artifact. Everything here is a draft, untested by people. The steel plates are drawings and LOCK itself is not yet built.": "KEY è la metà fatta a mano di LOCK, un calcolatore di chiavi trasparente e un'opera di Anonymous Art. Tutto qui è una bozza, non ancora provata da persone. Le piastre d'acciaio sono disegni e LOCK non è ancora costruito."}, RULES = [["^Row (\\d+), dice dot (\\d+)$", "Riga $1, punto del dado $2"], ["^Row (\\d+), dot (\\d+)$", "Riga $1, punto $2"], ["^Row (\\d+), four digits$", "Riga $1, quattro cifre"]].map(function(r){ return [new RegExp(r[0]), r[1]]; });
+  var ATTRS = ['aria-label', 'title', 'placeholder'];
+  var lang = 'en', busy = false, store = new WeakMap();
+  function tr(en){
+    var k = en.trim(); if (!k) return null;
+    if (Object.prototype.hasOwnProperty.call(IT, k)) return en.replace(k, IT[k]);
+    for (var i = 0; i < RULES.length; i++) if (RULES[i][0].test(k)) return en.replace(k, k.replace(RULES[i][0], RULES[i][1]));
+    return null;
+  }
+  function textNode(n){
+    var rec = store.get(n);
+    var en = (rec && n.nodeValue === rec.it) ? rec.en : n.nodeValue;
+    if (lang === 'it'){ var it = tr(en); if (it !== null){ store.set(n, {en: en, it: it}); if (n.nodeValue !== it) n.nodeValue = it; } }
+    else if (rec && n.nodeValue === rec.it){ n.nodeValue = rec.en; }
+  }
+  function attrs(el){
+    ATTRS.forEach(function(a){
+      if (!el.hasAttribute || !el.hasAttribute(a)) return;
+      var key = 'data-en-' + a, cur = el.getAttribute(a), saved = el.getAttribute(key);
+      var en = (saved !== null && el.getAttribute('data-it-' + a) === cur) ? saved : cur;
+      if (lang === 'it'){ var it = tr(en); if (it !== null && cur !== it){ el.setAttribute(key, en); el.setAttribute('data-it-' + a, it); el.setAttribute(a, it); } }
+      else if (saved !== null && el.getAttribute('data-it-' + a) === cur && cur !== saved){ el.setAttribute(a, saved); }
+    });
+  }
+  function apply(root){
+    busy = true;
+    var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null), n;
+    while ((n = w.nextNode())) if (!n.parentNode || !n.parentNode.closest || !n.parentNode.closest('script,style,.lang')) textNode(n);
+    if (root.querySelectorAll) { attrs(root); root.querySelectorAll('[aria-label],[title],[placeholder]').forEach(attrs); }
+    busy = false;
+  }
+  var btn = document.createElement('button');
+  btn.type = 'button'; btn.className = 'lang';
+  function set(l){
+    lang = l; document.documentElement.lang = l;
+    var t = document.querySelector('title');
+    if (t){ if (!t.dataset.en) t.dataset.en = t.textContent; t.textContent = l === 'it' ? (tr(t.dataset.en) || t.dataset.en) : t.dataset.en; }
+    document.querySelectorAll('[data-href-en]').forEach(function(a){ a.setAttribute('href', l === 'it' ? a.getAttribute('data-href-it') : a.getAttribute('data-href-en')); });
+    apply(document.body);
+    btn.textContent = l === 'it' ? 'EN' : 'IT';
+    btn.setAttribute('aria-label', l === 'it' ? 'English' : 'Italiano');
+    try { localStorage.setItem('key-lang', l); } catch (e) {}
+  }
+  btn.addEventListener('click', function(){ set(lang === 'it' ? 'en' : 'it'); });
+  var head = document.querySelector('header'); (head || document.body).insertBefore(btn, (head || document.body).firstChild);
+  new MutationObserver(function(ms){ if (busy || lang !== 'it') return; ms.forEach(function(m){ apply(m.target.nodeType === 3 ? m.target.parentNode : m.target); }); })
+    .observe(document.body, {childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ATTRS});
+  var saved = null; try { saved = localStorage.getItem('key-lang'); } catch (e) {}
+  set(saved || (/^it\b/i.test(navigator.language || '') ? 'it' : 'en'));
+  window.KEYLang = { set: set, get: function(){ return lang; } };
+})();
+</script>
+</body>
+</html>
